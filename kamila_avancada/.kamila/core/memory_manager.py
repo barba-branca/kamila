@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # core/memory_manager.py
 import json
 import os
@@ -69,3 +70,36 @@ def get_from_memory(key, default=None):
 # --- Ação Inicial ---
 # Carrega a memória assim que este módulo for importado pela primeira vez.
 load_memory()
+=======
+import logging
+
+logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
+
+# Memória simples em um dicionário para manter o contexto
+conversation_context = {}
+
+def update_context(key, value):
+    """Atualiza o contexto da conversa."""
+    logging.info(f"Memory Manager: Atualizando contexto '{key}' para '{value}'")
+    conversation_context[key] = value
+
+def get_from_context(key):
+    """Recupera um valor do contexto."""
+    value = conversation_context.get(key)
+    logging.info(f"Memory Manager: Recuperando contexto '{key}' -> '{value}'")
+    return value
+
+def clear_context():
+    """Limpa todo o contexto."""
+    logging.info("Memory Manager: Contexto limpo.")
+    conversation_context.clear()
+
+if __name__ == '__main__':
+    # Teste rápido
+    print("Testando o Módulo Memory Manager...")
+    update_context("last_user", "Martins")
+    user = get_from_context("last_user")
+    print(f"Usuário no contexto: {user}")
+    clear_context()
+    print(f"Contexto após limpar: {conversation_context}")
+>>>>>>> 61a3238 (Primeiro commit da kamila assistente virtual)

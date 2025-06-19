@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # main.py - Versão Final com Palavra de Ativação Customizada
 import os
 import struct
@@ -105,3 +106,48 @@ def main():
 
 if __name__ == "__main__":
     main()
+=======
+from core import stt_engine, tts_engine, interpreter, memory_manager, actions
+import logging
+import time
+
+logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(name)s - %(levelname)s - %(message)s')
+
+def main():
+    try:
+        logging.info("Kamila iniciada. Dizendo a mensagem de boas-vindas.")
+        tts_engine.speak("Oi Kauê, eu sou a Kamila. Estou ativa e pronta para ajudar.")
+    except Exception as e:
+        logging.error(f"Erro ao iniciar e falar a mensagem de boas-vindas: {e}")
+        time.sleep(5)
+
+    logging.info("Iniciando o loop principal de escuta.")
+    while True:
+        try:
+            comando = stt_engine.listen()
+            if comando:
+                logging.info(f"Comando recebido: '{comando}'")
+                intent_data = interpreter.analyze_intent(comando)
+                if intent_data:
+                    resposta = actions.execute_action(intent_data)
+                    if resposta:
+                        logging.info(f"Resposta gerada: '{resposta}'")
+                        tts_engine.speak(resposta)
+                    else:
+                        logging.warning("Nenhuma resposta foi gerada pela ação.")
+                else:
+                    logging.warning("Nenhuma intenção foi extraída do comando.")
+            else:
+                logging.info("Nenhum comando foi ouvido, reiniciando o ciclo de escuta.")
+            time.sleep(1)
+        except Exception as e:
+            logging.error(f"Ocorreu um erro inesperado no loop principal: {e}")
+            try:
+                tts_engine.speak("Ocorreu um erro interno. Estou reiniciando meu ciclo.")
+            except:
+                pass
+            time.sleep(10)
+
+if __name__ == "__main__":
+    main()
+>>>>>>> 61a3238 (Primeiro commit da kamila assistente virtual)
