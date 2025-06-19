@@ -1,7 +1,4 @@
-
 __pycache__/
 *.pyc
 *.log
-teste_com_log.py
-teste_microfone.py
-udo apt-get install mpg123
+.vscode/
